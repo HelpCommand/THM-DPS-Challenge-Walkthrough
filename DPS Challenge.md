@@ -7,34 +7,35 @@ The room is located at <https://tryhackme.com/room/dpschallenge>
 
 #### I looked at the second question for information that might be being searched. I used the find string option to look for “Flight” The results were SMB2 traffic from the target and the attacker.
 
-What is the IP address of the hacker?  
+***What is the IP address of the hacker?***  
 
--192.168.200.7
+- *192.168.200.7*
 
 I exported smb objects via file-export objects-smb from the pcap and found 2 files. The first being his flight info and the second being a picture of a goose with his computer flag on it.
 
 
-Where is Tom flying to? 
--Phoenix
+***Where is Tom flying to?*** 
+- *Phoenix*
 
-How much did Tom pay (in USD) in total for the flight? 
+***How much did Tom pay (in USD) in total for the flight?***
 
--219.30
+- *219.30*
 
-What is the flag on Tom's computer? (format: @@@-@@@-####)
+***What is the flag on Tom's computer? (format: @@@-@@@-####)***
 
--Sky-Leak-2304
+- *Sky-Leak-2304*
 
 I looked at the traffic between the attacker and the target, using ip.src == attacker. Packet 49180 shows DCERPC protocol which shows us that attackers distribution.
-What is the name of the Linux distribution used by the attacker?  
 
--Kali
+***What is the name of the Linux distribution used by the attacker?***  
+
+- *Kali*
 
 I used the find for “.exe” while I had the packets filtered with ip.src==attacker
 
-Tom had an executable file in his data volume, what is the name of that file?
+***Tom had an executable file in his data volume, what is the name of that file?***
 
--wireshark-win64-3.0.6.exe
+- *wireshark-win64-3.0.6.exe*
 
 Looked for the ntlm information, I filtered via ntImspp and looked for the auth packet and copied the domain  - WORKGROUP and user name Tom_Fedder. I next looked for the NTProofStr and Ntlmv2 response and copied those to a text document.  I then looked for the server challenge and I put them all together with this format username::domain:ServerChallenge:NTproofstring:modifiedntlmv2response
 
@@ -42,6 +43,6 @@ tom_fedder::WORKGROUP:497bb71c637c055b:ed93b7d3ed61c510d74d98fb688476e0:01010000
 
 Then I put it in a text document and then used hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt
 
-What is Tom's account password? 
+***What is Tom's account password?*** 
 
--castlepark93
+- *castlepark93*
